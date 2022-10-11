@@ -12,7 +12,7 @@
         <!-- Divider-->
         <li class="divider" data-text="STARTER">MASTER</li>
         <li>
-          <a href="#"><i class='bx bx-columns icon'></i> Category <i class='bx bx-chevron-right icon-right'></i></a>
+          <a href="#"><i class='bx bx-columns icon'></i> Category & Tags<i class='bx bx-chevron-right icon-right'></i></a>
           <ul class="side-dropdown">
             <li>
               <a href="{{ route('category') }}">Category</a>
