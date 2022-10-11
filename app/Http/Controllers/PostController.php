@@ -12,25 +12,140 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
+    protected $api_host;
+    
+    public function __construct()
+    {
+        $this->api_host = ENV('API_URL');
+    }
+
     public function index(Request $request)
     {
-        try{            
-            $data = Http::withToken(Session::get('token'))->get($this->api_host.'/api/posts')->json();
+        if(Session::get('token')){
+            try{            
+                $data = Http::withToken(Session::get('token'))->get($this->api_host.'/api/posts')->json();
+               
+                $table = $this->getPaginator($data, $request);
+                return view('post.index', compact('table'));
+            }
+            catch (\Exception $e) {
+                // return response()->json(['success' => false, 'http_code' => $e->getCode(), 'message' => $e->getMessage()]);
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth');
+        }
+        
+    }
 
-            $table = $this->getPaginator($data['data'], $request);
-            return view('post.index', compact('table'));
+    public function create(Request $request)
+    {
+        if(Session::get('token')){  
+            try{           
+                $category = Http::withToken(Session::get('token'))->get($this->api_host.'/api/category')->json();
+                $tag = Http::withToken(Session::get('token'))->get($this->api_host.'/api/tag')->json();
+                return view('post.create',compact('category','tag'));
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
         }
-        catch (\Exception $e) {
-            // return response()->json(['success' => false, 'http_code' => $e->getCode(), 'message' => $e->getMessage()]);
-            return redirect()->route('home'); 
+        else{
+            return redirect()->route('get-auth'); 
         }
+        
+    }
+
+    public function store(Request $request)
+    {
+        if(Session::get('token')){  
+            try{   
+                $response = Http::withToken(Session::get('token'))->post($this->api_host.'/api/posts', [
+                    'category_id'   => $request->input('category_id'),
+                    'tag_id'        => $request->input('tag_id'),
+                    'title'         => $request->input('title'),
+                    'body'          => $request->input('body'),
+                    'status'        => $request->input('status')
+                ]);     
+
+                return redirect()->route('post');
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+        
+    }
+
+    public function edit(Request $request, $id)
+    {
+        if(Session::get('token')){  
+            try{         
+                $table = Http::withToken(Session::get('token'))->get($this->api_host.'/api/posts/'.$id)->json(); 
+                $category = Http::withToken(Session::get('token'))->get($this->api_host.'/api/category')->json();
+                $tag = Http::withToken(Session::get('token'))->get($this->api_host.'/api/tag')->json();
+
+                return view('post.edit',compact('table','category','tag'));
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+        
+    }
+
+    public function update(Request $request, $id)
+    {
+        if(Session::get('token')){  
+            try{   
+                $response = Http::withToken(Session::get('token'))->post($this->api_host.'/api/posts/'.$id, [
+                    'category_id'   => $request->input('category_id'),
+                    'tag_id'        => $request->input('tag_id'),
+                    'title'         => $request->input('title'),
+                    'body'          => $request->input('body'),
+                    'status'        => $request->input('status')
+                ]);     
+                return redirect()->route('post');
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+        
+    }
+
+    public function delete(Request $request, $id)
+    {
+        if(Session::get('token')){  
+            try{   
+                $response = Http::withToken(Session::get('token'))->delete($this->api_host.'/api/posts/'.$id);     
+                return redirect()->route('post');
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+        
     }
 
     public function getPaginator($items, $request)
     {
         $total = count($items); // total count of the set, this is necessary so the paginator will know the total pages to display
         $page = $request->page ? $request->page : 1; // get current page from the request, first page is null
-        $perPage = 10; // how many items you want to display per page?
+        $perPage = 5; // how many items you want to display per page?
         $offset = ($page - 1) * $perPage; // get the offset, how many items need to be "skipped" on this page
 
         $items = array_slice($items, $offset, $perPage); // the array that we actually pass to the paginator is sliced

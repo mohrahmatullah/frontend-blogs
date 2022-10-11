@@ -24,6 +24,11 @@ class AuthController extends Controller
         return view('login.index');
     }
 
+    public function register(Request $request)
+    {
+        return view('login.register');
+    }
+
     public function auth(Request $request){
         $response = Http::post($this->api_host.'/api/login', [
             'email' => $request->input('email'),
@@ -56,7 +61,29 @@ class AuthController extends Controller
         
         Session::flush();
 
-        return redirect()->route('home'); 
+        return redirect()->route('get-auth'); 
     }
+
+    public function error404(){
+
+        return view('error.error-404'); 
+    }
+
+    public function profile(){
+        if(Session::get('token')){  
+            try{           
+                $profile = Http::withToken(Session::get('token'))->get($this->api_host.'/api/profile-user')->json();
+                return view('profile.index',compact('profile'));
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+
+    }
+
 
 }
