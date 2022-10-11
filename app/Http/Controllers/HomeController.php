@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        if(Session::get('token')){  
+            try{   
+                return view('home.index');
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
     }
 
     /**
