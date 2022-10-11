@@ -29,6 +29,22 @@ class AuthController extends Controller
         return view('login.register');
     }
 
+    public function saveRegister(Request $request)
+    {
+       try{   
+            $response = Http::post($this->api_host.'/api/register', [
+                'name'              => $request->input('name'),
+                'email'             => $request->input('email'),
+                'password'          => $request->input('password')
+            ]);     
+
+            return redirect()->route('get-auth');
+        }
+        catch (\Exception $e) {
+            return redirect()->route('error-404'); 
+        }
+    }
+
     public function auth(Request $request){
         $response = Http::post($this->api_host.'/api/login', [
             'email' => $request->input('email'),
