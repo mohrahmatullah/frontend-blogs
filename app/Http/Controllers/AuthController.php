@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\View;
+use Session;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class AuthController extends Controller
+{
+    protected $api_host;
+    
+    public function __construct()
+    {
+        $this->api_host = ENV('API_URL');
+    }
+
+    public function index(Request $request)
+    {
+        return view('login.index');
+    }
+
+    public function auth(Request $request){
+        $response = Http::post($this->api_host.'/api/login', [
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ]);
+
+        if($response->ok()){
+            $login = $response->json();
+
+            Session([
+                        'token' => $login['access_token']
+                    ]);
+
+            $alert_toast = 
+            [
+                'title' => 'Operation Successful : ',
+                'text'  => 'Successfully login.',
+                'type'  => 'success',
+            ];
+            Session::flash('alert_toast', $alert_toast);
+            return redirect()->route('post');
+        }
+        else{
+            echo "Salah login";
+        }
+    }
+
+    public function logout(){
+        Http::withToken(Session::get('token'))->get($this->api_host.'/api/logout')->json();
+        
+        Session::flush();
+
+        return redirect()->route('home'); 
+    }
+
+}
