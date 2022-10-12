@@ -54,8 +54,9 @@ class HomeController extends Controller
             }
             
             $table = $this->getPaginator($data, $request);
-            
-            return view('eksternal.post.index', compact('table'));
+            $category = Http::get($this->api_host.'/api/list-category')->json();
+
+            return view('eksternal.post.index', compact('table','category'));
         }
         catch (\Exception $e) {
             // return response()->json(['success' => false, 'http_code' => $e->getCode(), 'message' => $e->getMessage()]);
@@ -73,9 +74,11 @@ class HomeController extends Controller
     public function detail( $id = null )
     {
         try{        
-            $table = Http::get($this->api_host.'/api/posts/'.$id)->json();
+            $table = Http::get($this->api_host.'/api/posts/'.$id)->json();            
+            $category = Http::get($this->api_host.'/api/list-category')->json();
+            $tag = Http::get($this->api_host.'/api/list-tag')->json();
 
-            return view('eksternal.post.detail', compact('table'));
+            return view('eksternal.post.detail', compact('table','category','tag'));
         }
         catch (\Exception $e) {
             // return response()->json(['success' => false, 'http_code' => $e->getCode(), 'message' => $e->getMessage()]);

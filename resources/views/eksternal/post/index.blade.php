@@ -8,14 +8,20 @@
             @foreach($table as $row)
             <!-- Post preview-->
             <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                    <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
+                <a href="{{route('post-detail', $row['id'])}}">
+                    <h2 class="post-title">{{ $row['title'] }}</h2>
+                    <h3 class="post-subtitle">
+                        @if(strlen($row['body']) > 140)
+                            @php
+                                $str = substr($row['body'], 0, 137) . '...';
+                            @endphp
+                        @endif
+                        {{ $str }}
+                    </h3>
                 </a>
                 <p class="post-meta">
-                    Posted by
-                    <a href="#!">Start Bootstrap</a>
-                    on September 24, 2022
+                    Posted 
+                    on {{ date('d M Y', strtotime($row['created_at'])) }}
                 </p>
             </div>
             <!-- Divider-->
