@@ -27,8 +27,10 @@
             <!-- Divider-->
             <hr class="my-4" />
             @endforeach
+            
+            {!! $table->appends(Request::capture()->except('page'))->render('layouts.paginate') !!}
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+            <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
         </div>
     </div>
 </div>
