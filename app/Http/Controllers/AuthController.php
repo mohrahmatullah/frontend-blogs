@@ -46,29 +46,37 @@ class AuthController extends Controller
     }
 
     public function auth(Request $request){
-        $response = Http::post($this->api_host.'/api/login', [
-            'email' => $request->input('email'),
-            'password' => $request->input('password')
-        ]);
 
-        if($response->ok()){
-            $login = $response->json();
+        try {
+            $response = Http::post($this->api_host.'/api/login', [
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ]);
+            
+            if($response->ok()){
+                $login = $response->json();
 
-            Session([
-                        'token' => $login['access_token']
-                    ]);
+                Session([
+                            'token' => $login['access_token']
+                        ]);
 
-            $alert_toast = 
-            [
-                'title' => 'Successfully sign in',
-                'text'  => 'Welcome to dashboard admin',
-                'type'  => 'success',
-            ];
-            Session::flash('alert_toast', $alert_toast);
-            return redirect()->route('post');
+                $alert_toast = 
+                [
+                    'title' => 'Successfully sign in',
+                    'text'  => 'Welcome to dashboard admin',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
+                return redirect()->route('post');
+            }
+            else{
+                return redirect()->route('get-auth'); 
+            }
+            
+            return back()->with('error', $login->json()['message'])->withInput($request->all());
         }
-        else{
-            return redirect()->route('get-auth'); 
+        catch (\Exception $e) {
+            return response()->json(['success' => false, 'http_code' => $e->getCode(), 'message' => $e->getMessage()]);
         }
     }
 
