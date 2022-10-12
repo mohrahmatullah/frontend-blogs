@@ -68,7 +68,7 @@ class AuthController extends Controller
             return redirect()->route('post');
         }
         else{
-            echo "Salah login";
+            return redirect()->route('get-auth'); 
         }
     }
 

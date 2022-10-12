@@ -18,9 +18,9 @@ use App\Http\Controllers\TagController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('home');
 
@@ -62,6 +62,12 @@ Route::post('edit-tag/{id}', [TagController::class, 'update'])->name('edit-tag')
 Route::get('delete-tag/{id}', [TagController::class, 'delete'])->name('delete-tag');
 
 Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+
+
+Route::get('/', [HomeController::class, 'post'])->name('/');
+Route::get('/{id}', [HomeController::class, 'post'])->name('post-category');
+Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('post-detail');
+
 
 
 // Route::get('split', [ListController::class, 'getSplit']);
