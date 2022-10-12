@@ -33,7 +33,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created</th>
-                <th scope="col">View Details</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
