@@ -64,7 +64,7 @@ class TagController extends Controller
 
                 $alert_toast = 
                 [
-                    'title' => 'Operation Successful : ',
+                    'title' => 'Operation Successful',
                     'text'  => 'Successfully Save Data.',
                     'type'  => 'success',
                 ];
@@ -109,7 +109,7 @@ class TagController extends Controller
 
                 $alert_toast = 
                 [
-                    'title' => 'Operation Successful : ',
+                    'title' => 'Operation Successful',
                     'text'  => 'Successfully Update Data.',
                     'type'  => 'success',
                 ];
@@ -134,7 +134,7 @@ class TagController extends Controller
 
                 $alert_toast = 
                 [
-                    'title' => 'Operation Successful : ',
+                    'title' => 'Operation Successful',
                     'text'  => 'Successfully Delete Data.',
                     'type'  => 'success',
                 ];

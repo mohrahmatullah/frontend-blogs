@@ -60,8 +60,8 @@ class AuthController extends Controller
 
             $alert_toast = 
             [
-                'title' => 'Operation Successful : ',
-                'text'  => 'Successfully login.',
+                'title' => 'Successfully sign in',
+                'text'  => 'Welcome to dashboard admin',
                 'type'  => 'success',
             ];
             Session::flash('alert_toast', $alert_toast);
