@@ -9,7 +9,7 @@
                 <h2 class="post-title">{{ $table['title'] }}</h2>
                 <p>{{$table['body']}}</p>
                 <h5 class="post-title">Category</h5>
-                <button type="button" class="btn btn-outline-info btn-sm">{{ $table['category']['title'] }}</button>
+                <a type="button" href="{{route('post-category', $table['category']['id'])}}" class="btn btn-outline-info btn-sm">{{ $table['category']['title'] }}</a>
                 <h5 class="post-title">Tag</h5>
                 @foreach($tag as $row)
                     @if(in_array($row['id'], json_decode($table['tag_id'])) )
