@@ -13,6 +13,8 @@ Laravel 8
 
 ```
 https://github.com/mohrahmatullah/frontend-blogs
+
+Replace API_URL pada file .env API_URL=http://localhost/api-blogs/public
 ```
 
 2. Link Masuk Ke login admin
