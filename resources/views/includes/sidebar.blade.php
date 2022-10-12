@@ -6,9 +6,9 @@
         <h2 class="mb-0"><img src="{{url('assets/images/logo.png')}}">BLOG</h2>
       </div>
       <ul class="side-menu">
-        <li>
+        <!-- <li>
           <a href="{{ route('home' )}}" class="active"><i class='bx bxs-dashboard icon'></i> Dashboard </a>
-        </li>
+        </li> -->
         <!-- Divider-->
         <li class="divider" data-text="STARTER">MASTER</li>
         <li>
