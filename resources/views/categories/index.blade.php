@@ -44,7 +44,7 @@
             <tbody>
               @foreach ($table as $row)
               <tr>
-                <th scope="row">{{ $loop->iteration }} </th>
+                <th scope="row">{{ $table->firstItem() + $loop->index }}</th>
                 <td>{{ $row['title'] }}</td>
                 <td>{{ date('d M Y', strtotime($row['created_at'])) }}</td>
                 <td>

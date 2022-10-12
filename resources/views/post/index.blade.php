@@ -50,7 +50,7 @@
             <tbody>
               @foreach ($table as $row)
               <tr>
-                <th scope="row">{{ $loop->iteration }} </th>
+                <th scope="row">{{ $table->firstItem() + $loop->index }} </th>
                 <th>{{ $row['category']['title'] }} </th>
                 <td>{{ $row['title'] }}</td>
                 <td>{{ $row['status'] }}</td>
