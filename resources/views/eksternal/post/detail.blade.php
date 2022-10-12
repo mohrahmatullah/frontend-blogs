@@ -1,5 +1,5 @@
 @extends('eksternal.includes.default')
-@section('title', 'Blog')
+@section('title', 'Blog | '.$table['title'])
 @section('content')
 <!-- Post Content-->
 <article class="mb-5">
