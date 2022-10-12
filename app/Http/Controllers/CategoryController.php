@@ -60,6 +60,14 @@ class CategoryController extends Controller
                 $response = Http::withToken(Session::get('token'))->post($this->api_host.'/api/category', [
                     'title' => $request->input('title')
                 ]);     
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Save Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
                 return redirect()->route('category');
             }
             catch (\Exception $e) {
@@ -97,6 +105,14 @@ class CategoryController extends Controller
                 $response = Http::withToken(Session::get('token'))->post($this->api_host.'/api/category/'.$id, [
                     'title' => $request->input('title')
                 ]);     
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Update Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
                 return redirect()->route('category');
             }
             catch (\Exception $e) {
@@ -114,6 +130,14 @@ class CategoryController extends Controller
         if(Session::get('token')){  
             try{   
                 $response = Http::withToken(Session::get('token'))->delete($this->api_host.'/api/category/'.$id);     
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Delete Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
                 return redirect()->route('category');
             }
             catch (\Exception $e) {

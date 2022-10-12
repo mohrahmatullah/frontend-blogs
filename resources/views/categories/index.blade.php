@@ -9,6 +9,16 @@
     </div>
     
     <div class="row">
+      @if($alert_toast = Session::get('alert_toast'))
+          <div class="col-12 mb-4">
+            <div class="hero bg-primary text-white">
+              <div class="hero-inner">
+                <h2>{{$alert_toast['title']}}</h2>
+                <p class="lead">{{$alert_toast['text']}}</p>
+              </div>
+            </div>
+          </div>
+      @endif
       
       <div class="col-md-3">
         <div class="card">

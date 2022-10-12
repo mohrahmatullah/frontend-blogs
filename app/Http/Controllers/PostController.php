@@ -67,7 +67,15 @@ class PostController extends Controller
                     'title'         => $request->input('title'),
                     'body'          => $request->input('body'),
                     'status'        => $request->input('status')
-                ]);     
+                ]);  
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Save Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
 
                 return redirect()->route('post');
             }
@@ -112,6 +120,16 @@ class PostController extends Controller
                     'body'          => $request->input('body'),
                     'status'        => $request->input('status')
                 ]);     
+
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Update Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);
+
                 return redirect()->route('post');
             }
             catch (\Exception $e) {
@@ -128,7 +146,15 @@ class PostController extends Controller
     {
         if(Session::get('token')){  
             try{   
-                $response = Http::withToken(Session::get('token'))->delete($this->api_host.'/api/posts/'.$id);     
+                $response = Http::withToken(Session::get('token'))->delete($this->api_host.'/api/posts/'.$id); 
+
+                $alert_toast = 
+                [
+                    'title' => 'Operation Successful : ',
+                    'text'  => 'Successfully Delete Data.',
+                    'type'  => 'success',
+                ];
+                Session::flash('alert_toast', $alert_toast);    
                 return redirect()->route('post');
             }
             catch (\Exception $e) {

@@ -15,6 +15,10 @@
                             @php
                                 $str = substr($row['body'], 0, 137) . '...';
                             @endphp
+                        @else
+                            @php
+                                $str = $row['body'].'...';
+                            @endphp
                         @endif
                         {{ $str }}
                     </h3>
