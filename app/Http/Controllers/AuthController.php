@@ -52,7 +52,7 @@ class AuthController extends Controller
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
             ]);
-            
+
             if($response->ok()){
                 $login = $response->json();
 
@@ -72,7 +72,7 @@ class AuthController extends Controller
             else{
                 return redirect()->route('get-auth'); 
             }
-            
+
             return back()->with('error', $login->json()['message'])->withInput($request->all());
         }
         catch (\Exception $e) {
@@ -108,6 +108,5 @@ class AuthController extends Controller
         }
 
     }
-
 
 }

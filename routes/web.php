@@ -62,6 +62,7 @@ Route::post('edit-tag/{id}', [TagController::class, 'update'])->name('edit-tag')
 Route::get('delete-tag/{id}', [TagController::class, 'delete'])->name('delete-tag');
 
 Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+Route::get('list-user', [TagController::class, 'listUser'])->name('list-user');
 
 
 Route::get('/', [HomeController::class, 'post'])->name('/');

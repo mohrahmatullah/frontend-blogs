@@ -21,6 +21,7 @@
               <a href="{{ route('tag') }}">Tag</a>
             </li>
           </ul>
+          <a href="{{ route('list-user') }}"><i class='bx bx-columns icon'></i> User</a>
         </li>
         <!-- Divider-->
         <li class="divider" data-text="Atrana">Transaction</li>

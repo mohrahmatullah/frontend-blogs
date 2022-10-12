@@ -151,6 +151,26 @@ class TagController extends Controller
         
     }
 
+
+    public function listUser(Request $request){
+        if(Session::get('token')){  
+            try{     
+                $data = Http::withToken(Session::get('token'))->get($this->api_host.'/api/profile')->json();
+                
+                $table = $this->getPaginator($data, $request); 
+                
+                return view('profile.profile',compact('table'));
+            }
+            catch (\Exception $e) {
+                return redirect()->route('error-404'); 
+            }
+        }
+        else{
+            return redirect()->route('get-auth'); 
+        }
+
+    }
+
     public function getPaginator($items, $request)
     {
         $total = count($items); // total count of the set, this is necessary so the paginator will know the total pages to display
