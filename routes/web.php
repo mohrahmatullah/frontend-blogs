@@ -24,13 +24,6 @@ use App\Http\Controllers\TagController;
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('home');
 
-// Route::get('/', [ListController::class, 'index'])->name('home');
-// Route::get('add', [ListController::class, 'add'])->name('add');
-// Route::post('create', [ListController::class, 'create'])->name('create');
-// Route::get('view/{id}', [ListController::class, 'view'])->name('view');
-// Route::get('lihat/{id}', [ListController::class, 'lihat'])->name('lihat');
-// Route::post('update', [ListController::class, 'update'])->name('update');
-
 Route::get('auth', [AuthController::class, 'index'])->name('get-auth');
 Route::post('auth', [AuthController::class, 'auth'])->name('post-auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -68,7 +61,3 @@ Route::get('list-user', [TagController::class, 'listUser'])->name('list-user');
 Route::get('/', [HomeController::class, 'post'])->name('/');
 Route::get('/{id}', [HomeController::class, 'post'])->name('post-category');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('post-detail');
-
-
-
-// Route::get('split', [ListController::class, 'getSplit']);
