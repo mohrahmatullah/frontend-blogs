@@ -20,7 +20,7 @@
                                 $str = $row['body'].'...';
                             @endphp
                         @endif
-                        {{ $str }}
+                        {!! $str !!}
                     </h3>
                 </a>
                 <p class="post-meta">
